@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Únete</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#04918A;--dark:#05403D;--bg:#F3FAF9;--line:#CFE5E3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--dark);font-family:'DM Sans',system-ui,sans-serif;display:flex;justify-content:center;padding:20px 16px 40px}
+.wrap{width:100%;max-width:440px}
+.logo{font-family:'Baloo 2',sans-serif;text-align:center;color:var(--teal);font-size:42px;line-height:1;margin:8px 0 0;font-weight:700}
+.logo small{display:block;font-size:14px;letter-spacing:.2em;color:var(--dark);font-weight:500;margin-top:4px}
+h1{font-family:'Baloo 2',sans-serif;font-size:28px;margin:22px 0 4px;text-align:center}
+.sub{text-align:center;margin:0 0 20px;opacity:.85}
+form{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+label{display:block;font-family:'Baloo 2',sans-serif;font-size:17px;margin:14px 0 6px}
+label i{font-family:'DM Sans',sans-serif;font-style:normal;font-size:13px;opacity:.6;margin-left:4px}
+input[type=text],input[type=email],input[type=tel],select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;color:var(--dark);background:#fff}
+input:focus,select:focus{outline:none;border-color:var(--teal)}
+.tel{display:flex;gap:8px}.tel span{padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg)}
+.row{display:flex;gap:8px}.row select{flex:1}
+.ck{display:flex;gap:10px;align-items:flex-start;margin-top:20px;font-size:15px}
+.ck input{width:22px;height:22px;accent-color:var(--teal);flex:none;margin-top:2px}
+button{width:100%;margin-top:18px;padding:15px;border:0;border-radius:14px;background:var(--dark);color:#fff;font-family:'Baloo 2',sans-serif;font-size:18px;letter-spacing:.05em;cursor:pointer}
+button:disabled{opacity:.5}
+.nota{font-size:12.5px;opacity:.7;margin:14px 0 0;text-align:center}
+.err{color:#b3261e;font-size:14px;margin-top:10px;text-align:center;min-height:1em}
+.hp{position:absolute;left:-9999px}
+#ok{display:none;text-align:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px 20px}
+#ok h2{font-family:'Baloo 2',sans-serif;color:var(--teal);font-size:28px;margin:0 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo"><span data-n="1"></span><small data-n="2"></small></div>
+  <div id="formbox">
+    <h1>¡Únete a <span data-n="1"></span>! 🍔</h1>
+    <p class="sub">Déjanos tus datos y recibe promociones, novedades y beneficios exclusivos.</p>
+    <form id="f" autocomplete="on">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" required maxlength="80" autocomplete="name">
+      <label for="numero">Número de WhatsApp</label>
+      <div class="tel"><span>+51</span><input type="tel" id="numero" required inputmode="numeric" maxlength="9" pattern="9[0-9]{8}" placeholder="9 dígitos" autocomplete="tel-national"></div>
+      <label for="correo">Correo electrónico <i>(opcional)</i></label>
+      <input type="email" id="correo" name="correo" maxlength="100" autocomplete="email">
+      <label>¿Cuándo es tu cumpleaños? <i>(opcional)</i></label>
+      <div class="row"><select id="dia" name="dia"><option value="">Día</option></select><select id="mes" name="mes"><option value="">Mes</option></select></div>
+      <label for="comida">Tu comida favorita de <span data-n="1"></span> <i>(opcional)</i></label>
+      <input type="text" id="comida" name="comida" maxlength="80">
+      <label for="bebida">Tu bebida favorita de <span data-n="1"></span> <i>(opcional)</i></label>
+      <input type="text" id="bebida" name="bebida" maxlength="80">
+      <input class="hp" type="text" name="web" tabindex="-1" autocomplete="off">
+      <label class="ck"><input type="checkbox" id="acepto" required><span>Acepto recibir promociones y novedades de <span data-n="1"></span> por WhatsApp.</span></label>
+      <button type="submit" id="btn">QUIERO RECIBIR PROMOCIONES</button>
+      <div class="err" id="err"></div>
+      <p class="nota">Usaremos tus datos solo para enviarte promociones. Puedes pedir que te quitemos de la lista cuando quieras.</p>
+    </form>
+  </div>
+  <div id="ok"><h2>¡Listo, ya eres parte de <span data-n="1"></span>!</h2><p>Pronto recibirás nuestras promociones por WhatsApp. ¡Gracias por unirte!</p></div>
+</div>
+<script>
+/* ====== CONFIGURA SOLO ESTO ====== */
+const NEGOCIO_1 = "ZAMPA";            // nombre grande
+const NEGOCIO_2 = "CAFÉ & BURGUER";   // subtítulo
+const ENDPOINT  = "https://script.google.com/macros/s/AKfycbzc2LB5mryx-DBjyz_hpF4QepGMiOwA6WrcQruBlG69rbg8vUehgpM65x0lSdHFM_Xm/exec";
+/* ================================= */
+document.querySelectorAll('[data-n]').forEach(e=>e.textContent=e.dataset.n==='1'?NEGOCIO_1:NEGOCIO_2);
+document.title='Únete a '+NEGOCIO_1;
+const dia=document.getElementById('dia'),mes=document.getElementById('mes');
+for(let i=1;i<=31;i++)dia.add(new Option(i,i));
+['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'].forEach((m,i)=>mes.add(new Option(m,i+1)));
+const f=document.getElementById('f'),btn=document.getElementById('btn'),err=document.getElementById('err');
+f.addEventListener('submit',e=>{
+  e.preventDefault();err.textContent='';
+  if(!ENDPOINT.startsWith('https://')){err.textContent='Falta configurar el ENDPOINT en el archivo.';return}
+  const d=new FormData(f);
+  d.set('numero','+51'+document.getElementById('numero').value.trim());
+  d.set('consentimiento','Sí');
+  btn.disabled=true;btn.textContent='Enviando…';
+  fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:new URLSearchParams(d)})
+   .then(()=>{document.getElementById('formbox').style.display='none';document.getElementById('ok').style.display='block'})
+   .catch(()=>{err.textContent='No se pudo enviar. Revisa tu internet e intenta de nuevo.';btn.disabled=false;btn.textContent='QUIERO RECIBIR PROMOCIONES'});
+});
+</script>
+</body>
+</html>
